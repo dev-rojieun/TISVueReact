@@ -200,3 +200,60 @@
         </div>
     </body>
 </html>
+
+<script>
+    // 1. 배열생성
+    let arr = [true, 100, "two"];
+
+    // 2. read
+    console.log(arr[1]);
+
+    // 3. create
+    arr[arr.length] = "three";
+    arr[arr.length] = undefined;
+    arr[arr.length] = "four";
+    arr[arr.length] = "aaa";
+
+    // react , vue 에서는 push() 사용이 안된다.
+    //arr.push("three", undefined, "four", "aaa");
+
+    // 4. update
+    arr[0] = "Update";
+
+    // 5. delete
+    arr.splice(2,1);
+
+    // 6. Search
+    arr = [1,3, 3784, 98, 842, 8230];
+
+    const arrFilter = arr.filter( (value, index, array) => {
+        //debugger;   // 프로그램이 실행되는 과정을 볼 수 있도록 debugger 를 걸어줌  단축키 - F8(다음단계로), F10(한줄씩)
+        return value >= 100;  // TorF
+    } );
+
+    console.log(arrFilter);
+
+
+    // 7. Sort -> return : True or False
+    const arrSort = arr.sort( (a, b) => {
+        return a - b;   // 오름차순
+        //return b - a;   // 내림차순
+    });
+
+    console.log(arrSort);
+
+
+    // 8. 배열복제 - map()
+    const arrMap = arr.map( (value, index, array) => {
+        return value + 100;
+    });
+
+    console.log(arrMap);
+
+    // 9. reduce() - 배열안의 모든 값을 가지고 연산할 때 사용
+    const arrReduce = arr.reduce( (acc, cur, idx, arr) => {
+        return acc + cur;
+    });
+
+    console.log(arrReduce);
+</script>
