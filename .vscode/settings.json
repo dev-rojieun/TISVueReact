@@ -12,10 +12,10 @@
     /* 기본 Formatter 설정 */
     "editor.defaultFormatter": "vscode.json-language-features",
     "editor.snippetSuggestions": "top",
-    "editor.fontSize": 20,
+    "editor.fontSize": 14,
     "editor.renderWhitespace": "all",
     "workbench.colorTheme": "Visual Studio Dark",
-    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "terminal.integrated.defaultProfile.windows": "C:\\Program Files\\Git\\bin\\bash.exe (migrated)",
     "terminal.integrated.fontSize": 20,
     // files
     "files.exclude": {

@@ -17,6 +17,10 @@
 
         온라인 babel 컴파일러 : https://babeljs.io/repl/
 
+        바벨은 JS 컴파일러
+        ES2016 작성코드를 ES5로 변경해준다.
+        React 의 JSX(리액트 화면을 구성하는 언어) 를 컴파일 해주기도한다.
+
         <hr>
 
         변수선언:
@@ -29,6 +33,7 @@
     <hr>
     <div id="output_es5">
         <!-- Hello, ES5 -->
+
     </div>
     <hr>
     <div id="output_es6">
@@ -40,6 +45,30 @@
 </html>
 
 <!-- ES5 사용하기 -->
+<script type="text/javascript">
+    var name = "abc";
+    var age = 10;
 
+    var getMessage = function () {
+        var es5 = document.getElementById("output_es5");
+        es5.innerHTML = "Hello, ES5";
+    };
+    getMessage();
+</script>
 
 <!-- ES6 사용하기 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+
+<script type="text/babel">  // type 을 babel 로 설정해서 ES6 쓰기 ... babel.js 를 사용하여 컴파일 하겠다. (es6 -> es5)
+    const name = "def";
+    let age = 20;
+
+    const getMessage = () => {
+        const es6 = document.getElementById("output_es6");
+        es6.innerHTML = "Hello, ES6";
+    };
+    getMessage();
+
+</script>

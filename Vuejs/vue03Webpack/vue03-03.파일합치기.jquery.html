@@ -71,6 +71,8 @@
         jQuery의 load() 메서드를 이용한 파일 결합시의 문제점은 무엇인가?
         ==> 페이지의 실행 순서와 연관됨
 
+        실행될때 합치기...
+
     </pre>
 
     <hr>
@@ -88,3 +90,10 @@
 </body>
 
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+    // jquery 의 load 를 통해 파일을 결합할 수 있다. => 실행될 때! 합친다. 그래서 live server 를 통해서 열어야지 합쳐짐. ( open in broser 는 X)
+    $("div[w3-include-header]").load("header.html");
+    $("div[w3-include-footer]").load("footer.html");
+</script>
