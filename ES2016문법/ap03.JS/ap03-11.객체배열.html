@@ -62,3 +62,35 @@
 </body>
 
 </html>
+
+
+<script>
+    var objarray = [
+        { text: 'One', value: 'A' },
+        { text: 'Two', value: 'B' },
+        { text: 'Three', value: 'C' }
+    ];
+
+    // 1. create
+    objarray[objarray.length] = { text: 'Four', value: 'D' };
+
+
+    // 2. update
+    objarray[1].text = '2';
+    objarray[1].value = '2';
+
+    objarray[1] = {text:'3', value:'3'};
+
+    console.log(objarray);
+
+    // 3. filter() => text === 'one'
+    // const objarrFilter = objarray.filter( (val, idx) => {
+    //     return val.text === 'One';
+    // } );
+    const objarrFilter = objarray.filter( val => val.text === 'One' );
+    console.log(objarrFilter);
+
+    // 4. delete
+    objarray.splice(2,1);
+    console.log(objarray);
+</script>
