@@ -34,10 +34,57 @@
         {{ message }}, app1
     </div>
 
-    <div>
+    <div id="app2">
         {{ message }}, app2
     </div>
 
 </body>
-
 </html>
+
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+
+new Vue({
+    /* edtmc^2w */
+    el: "#app2",
+    data: {
+        /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+        /*  data 속성 값을 직접 바꾸면 화면 렌더가 안되므로
+        => this.$set(object, key, value)  를 이용해서 바꾼다.
+        이것의 의미는 p.149 에서 스택영역의 data 들이 변경되어야 변했다고 인식하는데, 객체나 배열의 힙에 있는것은
+        값이 변경된지 알 수 없기 때문에, 힙의 기존 data 를 복제하여, 기존 연결을 끊고 새로운 data 로 주소값을 변경해주어 변경되었다고 인식하게 만드는 것이다.
+        */
+        message : "실습 완성 축하!!!!!"
+    },
+    //template: ``,
+    methods: {
+        /* 이벤트 핸들러 등록 */
+
+    },
+    components: {
+        /* 지역 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
+
+    },
+    computed: {
+        /* 자동처리 + 동기식. 메서드로 작성. return 필수. */
+
+    },
+    watch: {
+        /* 자동처리 + 비동기식. data 에 등록된 프로퍼티 모니터링. 메서드로 작성. 매개변수 입력 필수  */
+    },
+    mounted: function() {   // 최초 1회 실행!
+        console.log("mounted");
+    },
+    updated: function() {   // 데이터가 바뀔때 마다 자동 호출 update
+        console.log("updated");
+    },
+});
+
+
+</script>
