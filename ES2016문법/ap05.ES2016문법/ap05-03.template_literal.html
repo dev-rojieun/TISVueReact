@@ -10,11 +10,21 @@
     <xmp>
     ES6 코드를 브라우저에서 실행하려면 babel 이 필요하다.
 
-    < script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* ES5로 변환 */</script>
-    < script type="text/babel">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* ES5로 변환 */</script>
+    <script type="text/babel">
         // ES6 코딩
     </script>
     </xmp>
 
 </body>
 </html>
+
+<script>
+    const string1 = "Hello";
+    const string2 = "Greeting";
+    const greeting = `
+    ${string1},
+    ${string2}
+    `;  // html 은 줄바꿈X
+    console.log(greeting);
+</script>

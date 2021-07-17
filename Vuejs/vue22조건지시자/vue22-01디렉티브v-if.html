@@ -85,7 +85,7 @@
     </div>
 
     <h2>v-if/v-else-if/v-else 연습 4 : 실습</h2>
-    <div id="app5">
+    <div id="app4">
         <button v-on:click="clickBind">클릭</button>
         <span v-if="type === 1">
             A
@@ -103,3 +103,60 @@
 </body>
 
 </html>
+
+
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        /* edtmc^2w */
+        el: "#app1",
+        data: {
+            /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            awesome :  "" // awesom 혹은 true 가 아니면 else 값, 맞으면 vue is awesome 출력
+        },
+    });
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app2",
+        data: {
+            /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            awesome :  true
+        },
+    });
+
+
+    new Vue({
+        el : "#app3",
+        data : {
+            awesome : true
+        },
+        methods : {
+            clickBind : function (e) {
+                let val = this.$data.awesome === true? false : true;
+                val = !this.$data.awesome;
+                this.$set(this.$data , "awesome", val);
+            }
+        }
+    });
+
+    new Vue({
+        el : "#app4",
+        data : {
+            type : 0
+        },
+        methods : {
+            clickBind : function (e) {
+                this.$set(this.$data , "type", (this.$data.type+1)%4 );
+            }
+        }
+    });
+
+
+</script>
