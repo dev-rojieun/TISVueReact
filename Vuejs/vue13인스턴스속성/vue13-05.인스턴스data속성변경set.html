@@ -130,16 +130,14 @@
             /* 이벤트 핸들러 등록 */
             change1 : function (e) {
                 console.log("this.$set(object, key, value) 방식")
-                this.$data.arr[0] = 100;
-                console.log(this.$data.arr);    // 이렇게하면, 화면은 안바뀐다.. 이를 바꾸기 위해서
-
-                this.$set( this.$data.arr , 0 , 100 );
+                this.$data.arr[0] = 100;  // 이렇게하면, 화면은 안바뀐다.. 이를 바꾸기 위해서
+                this.$set( this.$data.arr , "0" , 100 );  // 2번째 프로퍼티는 문자로!
                 console.log(this.$data.arr);
             },
             change2 : function (e) {
                 console.log("Vue.set(object, key, value) 방식");
                 this.$data.arr[1] = 300;
-                Vue.set(this.$data.arr , 1, 300);
+                Vue.set(this.$data.arr , "1", 300);
                 console.log(this.$data.arr);
             },
             change3 : function (e) {
@@ -148,8 +146,13 @@
                 console.log(this.$data.arr);
             },
             change4 : function (e) {
-                console.log("spread 연산자 방식 사용 ");
+                console.log("spread 연산자 방식 사용 - 복제 후 재할당");
+                const arrCopy = [500, ...this.$data.arr , 70];  // 복제
 
+                //this.$data.arr = arrCopy;   // 재할당 방법1
+                this.$set( this.$data, "arr", arrCopy);     // 재할당 방법2
+
+                console.log( this.$data.arr );
             },
         },
         components: {
