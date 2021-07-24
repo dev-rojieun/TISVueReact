@@ -8,3 +8,6 @@ git 로 push 할 때 로그인 창 띄우기게 하려면 아래의 명령어를
 
 32bit 인 경우.
 "C:\Program Files (x86)\Git\mingw32\libexec\git-core\git-credential-manager.exe" uninstall
+
+
+https://github.com/sjydevildaum/tis20210710/blob/main/Vuejs/vue31%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8/vue31-03.%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8do0303.html

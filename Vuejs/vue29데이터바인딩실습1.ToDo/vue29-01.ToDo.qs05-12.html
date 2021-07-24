@@ -237,7 +237,7 @@
             <h1>TODO it!</h1>
         </header>
 
-        <!-- TodoInput -->
+        <!-- TodoInput -->  <!-- keyup.enter 의 경우, enter 로 addTodo가 가능하도록 설정하는 것. -->
         <div class="inputBox shadow">
             <input type="text"
                 placeholder="Type what you have to do"
@@ -368,9 +368,8 @@
             {
 
                 // this.$data.todoItems[idx].done = !this.$data.todoItems[idx].done;
-                this.$set(this.$data.todoItems[idx] , "done" , !this.$data.todoItems[idx].done);
+                // this.$set(this.$data.todoItems[idx] , "done" , !this.$data.todoItems[idx].done);
 
-               /*
                // id 를 찾아서 하는 것으로 바꾸자.
                 const indexFind = this.$data.todoItems.findIndex( (item, index, array) => {
                     return item.id === id ;
@@ -383,7 +382,7 @@
                 };
 
                 this.$set(this.$data.todoItems , indexFind , newObj);
-                */
+
 
             },
             removeTodo(id, idx)

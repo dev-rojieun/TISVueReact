@@ -43,6 +43,7 @@
         [참조]
         1. 교재 page 53,55,65
         2. https://kr.vuejs.org/v2/guide/components.html
+        3. https://kr.vuejs.org/v2/guide/components.html#Prop-%EA%B2%80%EC%A6%9D
     </xmp>
     <hr>
 
@@ -55,7 +56,91 @@
         <local-component v-bind:localmsg="localmsg1"></local-component>
         <local-component v-bind:localmsg="localmsg2"></local-component>
     </div>
+    <script>
+        /*
+            <local-component v-bind:localmsg="localmsg1"></local-component> 의 의미를 좀 풀어서 설명해보자.
+        */
+        var localmsg1 = "인스턴스에서 지역 컴포넌트로 넘겨진 메세지1";
+        var localmsg = localmsg1;
 
+        // 컴포넌트는 함수형태로 실행된다.
+        var LocalComponent  = function (localmsg) {
+            console.log(localmsg);
+        }
+
+        LocalComponent(localmsg1);   // localmsg1 을 넣어라... localmsg 에!
+        localmsg = localmsg1;
+    </script>
 </body>
 
 </html>
+
+
+
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+
+// 순서 중요함!
+Vue.component("GlobalComponent", {
+        /* pdtmc^2w */
+        props: ["propsdata"] ,
+        template: `
+        <div>
+            전역 컴포넌트
+            <button v-on:click="gclick"> {{propsdata}} </button>
+        </div>
+        `,
+        methods: {
+            /* 이벤트 핸들러 등록 */
+            gclick(){
+                console.log(event.target);
+                alert( event.target.innerHTML);
+            }
+        },
+    });
+
+    var LocalComponent = {
+        /* pdtmc^2w */
+        props: ["localmsg"],
+        template: `
+        <div>
+            지역 컴포넌트가 등록되었습니다!
+            <span style="border: 1px dashed blue; background-color:lightgray; padding: 5px;"
+                  v-on:click="lclick">
+                {{localmsg}}
+            </span>
+        </div>
+        `,
+        methods: {
+            /* 이벤트 핸들러 등록 */
+            lclick(){
+                console.log(event.target);
+                alert( event.target.innerHTML);
+            }
+        },
+    };
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            /* 인슨턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            globalmsg1:"인스턴스에서 전역 컴포넌트로 넘겨진 메시지1",
+            globalmsg2:"인스턴스에서 전역 컴포넌트로 넘겨진 메시지2",
+            localmsg1:"인스턴스에서 지역 컴포넌트로 넘겨진 메시지1",
+            localmsg2:"인스턴스에서 지역 컴포넌트로 넘겨진 메시지2",
+        },
+        components: {
+            /* 지역 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
+            //"global-component": GlobalComponent,
+            "local-component": LocalComponent
+        },
+    });
+
+</script>
