@@ -79,7 +79,7 @@
         </ul>
 
 
-        <img id="img2" src="img_image3" />
+        <img id="img2" v-bind:src="img_image3" />
         <hr />
 
 
@@ -94,8 +94,8 @@
             이미지 위에 마우스를 내리면(mouseout ) ==> ../images/but1.gif , ../images/img_swap_off.png
             이미지 위에 마우스를 올리면(mouseover) ==> ../images/but2.gif , ../images/img_swap_on.png
         </xmp>
-        <img src="img_but1" id="but1"     v-on:mouseover="imageover" v-on:mouseout="imageout" />
-        <img src="img_swap" id="img-swap" v-on:mouseover="imageover" v-on:mouseout="imageout" />
+        <img v-bind:src="img_but1" id="but1"     v-on:mouseover="imageover" v-on:mouseout="imageout" />
+        <img v-bind:src="img_swap" id="img-swap" v-on:mouseover="imageover" v-on:mouseout="imageout" />
         <hr />
 
 
@@ -133,13 +133,23 @@
             "vue23-01.v-for와배열.html" 를 참조하여 option 부분을 v-for 를 사용하도록 수정하시오.
 
         </xmp>
-        <select id="sel" change="selectchange">
+        <!-- <select id="sel" v-on:change="selectchange">
             <option value="../images/strawberry.gif">딸기</option>
             <option value="../images/banana.gif">바나나</option>
             <option value="../images/apple.gif" selected>사과</option>
+        </select> -->
+
+        <select id="sel" v-on:change="selectchange">
+            <option v-for="(fruit,index) in fruits"
+                        v-bind:key="index"
+                        v-bind:value="fruit.value">
+                    {{ fruit.text }}
+                </option>
         </select>
 
-        <img id="img" src="img_select" />
+        <img id="img" v-bind:src="img_select" />
+
+
         <hr />
 
         <xmp>
@@ -148,7 +158,7 @@
             focus 이벤트 핸들러 ==> inputfocus. outline: 2px dotted red 설정
             blur 이벤트 핸들러 ==> inputblur. outline: none 설정.
         </xmp>
-        <input type="text" id="ID" blur="inputblur" focus="inputfocus" />
+        <input type="text" id="ID" v-on:blur="inputblur" v-on:focus="inputfocus" />
         <hr />
 
     </div>
@@ -173,7 +183,16 @@
         /* edtmc^2w */
         el: "#app",
         data: {
-            /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            // 기본값 셋팅
+            img_image3 : null,
+            img_but1 : '../images/but1.gif',
+            img_swap : '../images/img_swap_off.png',
+            img_select : null,
+            fruits : [
+                { text : '딸기', value:'../images/strawberry.gif'},
+                { text : '바나나', value:'../images/banana.gif'},
+                { text : '사과', value:'../images/apple.gif'}
+            ]
 
         },
         //template: ``,
@@ -182,11 +201,11 @@
 
             // 1
             imageclick : function (e) {
-                e.preventDefault();
+                // a태그 사용 관련
+                e.preventDefault(); // 리다이렉트 취소
+                e.stopPropagation(); // 버블링 취소
+
                 let imgSource = e.target.href;
-
-                let imgArea = document.getElementById("img2").src;
-
                 document.getElementById("img2").src = imgSource;
             },
 
@@ -194,15 +213,33 @@
             // 2
             imageover : function (e) {
                 let targetId = e.target.id;
-                document.getElementById(targetId).src = targetId === "but1" ? "../images/but2.gif" : "../images/img_swap_on.png";
+                // document.getElementById(targetId).src = targetId === "but1" ? "../images/but2.gif" : "../images/img_swap_on.png";
 
-                // let targetSrc = document.getElementById(targetId).src.split('/');
-                // console.log(targetSrc[targetSrc.length-1]);
-
+                if(targetId === 'but1')
+                {
+                    // this.$data.img_but1 = "../images/but2.gif";
+                    this.$set(this.$data, "img_but1", "../images/but2.gif");
+                }
+                else if(targetId === 'img-swap'){
+                    // this.$data.img_swap = "../images/img_swap_on.png";
+                    this.$set(this.$data, "img_swap", "../images/img_swap_on.png");
+                }
             },
+
             imageout : function (e) {
                 let targetId = e.target.id;
-                document.getElementById(targetId).src = targetId === "but1" ? "../images/but1.gif" : "../images/img_swap_off.png";
+                //document.getElementById(targetId).src = targetId === "but1" ? "../images/but1.gif" : "../images/img_swap_off.png";
+
+                if(targetId === 'but1')
+                {
+                    // this.$data.img_but1 = "../images/but1.gif";
+                    this.$set(this.$data, "img_but1", "../images/but1.gif");
+                }
+                else if(targetId === 'img-swap'){
+                    // this.$data.img_swap = "../images/img_swap_off.png"
+                    this.$set(this.$data, "img_swap", "../images/img_swap_off.png");
+                }
+
             },
 
             // 3
@@ -220,6 +257,21 @@
             },
 
 
+            // 4
+            selectchange : function (e) {
+                //this.$data.img_select = e.target.value;
+                console.log(e.target.value);
+                console.log(e.target.text);
+                this.$set(this.$data, "img_select", e.target.value);
+            },
+
+            // 5
+            inputblur : function (e) {
+                e.target.style.outline="none";
+            },
+            inputfocus : function (e) {
+                e.target.style.outline="2px dotted red";
+            }
 
 
 
