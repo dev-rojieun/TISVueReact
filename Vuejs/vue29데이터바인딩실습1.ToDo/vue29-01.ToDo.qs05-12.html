@@ -248,6 +248,7 @@
                 <i class="addBtn fas fa-plus" aria-hidden="true"></i>
             </span>
 
+            <!-- $__ 는 vue 에서 제공하는! 상태관리에서 이벤트 발생 시 사용됨 - 추후-->
             <div class="modal-mask"
                 v-on:keyup.esc="$emit('close')"
                 v-if="showModal"
@@ -281,7 +282,7 @@
                     {{ todoItem.todo }}
                     <span class="removeBtn"
                           type="button"
-                          v-on:click="removeTodo(todoItem.id, index)">
+                          v-on:click.stop="removeTodo(todoItem.id, index)">     <!-- removeTodo 함수가 끝나고 stop 이 실행되어 더이상 타지않는다. ( stopProfersition() 을 사용하는~ )-->
                         <i class="far fa-trash-alt" aria-hidden="true"></i>
                     </span>
                 </li>
@@ -294,9 +295,109 @@
         </div>
 
     </div>
-    
-    
+
+
 
 </body>
 
 </html>
+
+
+
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            newTodoItem : null,
+            showModal : false,
+            todoItems : [
+                { id: 1, todo: "영화보기", done: false },
+                { id: 2, todo: "주말 산책", done: true },
+                { id: 3, todo: "ES6 학습", done: false },
+                { id: 4, todo: "잠실 야구장", done: false }
+            ],
+        },
+        //template: ``,
+        methods: {
+            /* 이벤트 핸들러 등록 */
+            addTodo ()
+            {
+
+                // this.$data.todoItems에서 최대 id 구하기 - length 나 index 사용시 오류가 날 수 있다... 그러므로 고유한 값id 를 사용하는 것이 좋다.
+                let maxObj = null;
+                if(this.$data.todoItems.length > 0)
+                {
+                    // reduce() 를 사용하여 최대 id 값을 가지고 있는 element 를 찾는다.
+                    maxObj = this.$data.todoItems.reduce( (prev, curr, idx, arr) => {
+                        return ( prev.id >= curr.id ) ?  prev : curr;
+                    });
+                }
+                else
+                {
+                    maxObj ={
+                        id : 0
+                    }
+                }
+
+                const newTodo = {
+                    id : maxObj.id + 1,
+                    todo : this.$data.newTodoItem,
+                    done : false
+                }
+
+                // this.$dta.todoItems.push (newTodo);
+                this.$data.todoItems[ this.$data.todoItems.length ] = newTodo;
+
+                // 텍스트 부분 비우기
+                this.$data.newTodoItem = "";
+            },
+            checked (done)
+            {
+                return done ? "checked" : null;
+            },
+            doneToggle (id, idx)
+            {
+
+                // this.$data.todoItems[idx].done = !this.$data.todoItems[idx].done;
+                this.$set(this.$data.todoItems[idx] , "done" , !this.$data.todoItems[idx].done);
+
+               /*
+               // id 를 찾아서 하는 것으로 바꾸자.
+                const indexFind = this.$data.todoItems.findIndex( (item, index, array) => {
+                    return item.id === id ;
+                } );
+
+                const newObj =
+                {
+                    ...this.$data.todoItems[indexFind],
+                    done : !this.$data.todoItems[indexFind].done
+                };
+
+                this.$set(this.$data.todoItems , indexFind , newObj);
+                */
+
+            },
+            removeTodo(id, idx)
+            {
+                // 복제 후 재할당 필요
+                this.$data.todoItems.splice(idx, 1);
+                // 이벤트 취소
+
+            },
+            clearAll () {
+
+                this.$set(this.$data, "todoItems" , []);
+            }
+        },
+    });
+
+</script>
