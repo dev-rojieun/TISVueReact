@@ -1,52 +1,86 @@
 <style scoped>
+body {
+    text-align: center;
+    background-color: #f6f6f8;
+}
+input {
+    border-style: groove;
+    width: 200px;
+}
+button {
+    border-style: groove;
+}
+.shadow {
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
+}
 </style>
 
 <template>
+    <div id="app">
+        <!-- TodoHeader -->
+        <TodoHeader></TodoHeader>
 
-  <!-- TodoHeader -->
-  <todo-header></todo-header>
+        <!-- TodoInput -->
+        <TodoInput v-on:addTodo="addTodo"></TodoInput>
 
-  <!-- TodoInput -->
-  <todo-input v-on:add-todo="addTodo"></todo-input>
+        <!-- TodoList -->
+        <TodoList
+            v-bind:todoItems="todoItems"
+            v-on:doneToggle="doneToggle"
+            v-on:removeTodo="removeTodo"
+        ></TodoList>
 
-  <!-- TodoList   -->
-  <todo-list
-      v-bind:todo-items="todoItems"
-      v-on:remove-todo="removeTodo"
-      v-on:done-toggle="doneToggle"
-  ></todo-list>
-
-  <!-- TodoFooter -->
-  <todo-footer v-on:clear-all="clearAll"></todo-footer>
-
+        <!-- TodoFooter -->
+        <TodoFooter v-on:clearAll="clearAll"></TodoFooter>
+    </div>
 </template>
-
 <script>
+import TodoHeader from "@/components/todo/TodoHeader.vue";
+import TodoInput from "@/components/todo/TodoInput.vue";
+import TodoList from "@/components/todo/TodoList.vue";
+import TodoFooter from "@/components/todo/TodoFooter.vue";
+
+import store from "../../store/index";
+
 export default {
     /* pdtmc^2w */
     props: [],
     data: function () {
-        /* 컴포넌트 안에서 사용되는 변수 등록. 개별 변수 */
-        return {};
+        return {
+            // todoItems: [
+            //     { id: 1, todo: "영화보기", done: false },
+            //     { id: 2, todo: "주말 산책", done: true },
+            //     { id: 3, todo: "ES6 학습", done: false },
+            //     { id: 4, todo: "잠실 야구장", done: false }
+            // ]
+        };
     },
     //template: ``,
     methods: {
-        /* 이벤트 핸들러 등록 */
+        addTodo: function (newTodoItem) {
+            store.dispatch("addTodo", newTodoItem);
+        },
+        doneToggle: function (id, index) {
+            store.dispatch("doneToggle", id, index);
+        },
+        removeTodo: function (id, index) {
+            store.dispatch("removeTodo", id, index);
+        },
+        clearAll: function () {
+            store.dispatch("clearAll");
+        }
     },
     components: {
-        /* 파일 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
+        TodoHeader: TodoHeader,
+        TodoInput: TodoInput,
+        TodoList: TodoList,
+        TodoFooter: TodoFooter
     },
     computed: {
-        /* 자동처리 + 동기식. 메서드로 작성. return 필수. */
+        todoItems: function () {
+            return store.getters.todoItems;
+        }
     },
-    watch: {
-        /* 자동처리 + 비동기식. data 에 등록된 프로퍼티 모니터링. 메서드로 작성. 매개변수 입력 필수  */
-    },
-    mounted: function () {
-        console.log("mounted");
-    },
-    updated: function () {
-        console.log("updated");
-    }
+    watch: {}
 };
 </script>
