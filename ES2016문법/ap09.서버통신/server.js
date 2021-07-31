@@ -3,6 +3,8 @@
  * http://stackoverflow.com/questions/4505809/how-to-post-to-a-request-using-node-js
  */
 
+// javascript 로 서버설정
+
 var http  = require('http');
 var $url  = require('url');
 var $fs   = require('fs' );
@@ -624,7 +626,7 @@ http.createServer( function(req, res) {
                 'Content-Type': 'application/json, charset=utf-8',
                 'Content-Length': Buffer.byteLength( txt )
             });
-            res.write( txt );
+            res.write(txt );
             res.end();
         });
     }
@@ -785,4 +787,4 @@ http.createServer( function(req, res) {
 
 }).listen(5050, 'localhost');
 
-console.log('start server - anonymous function');
+console.log('start server - anonymous function');

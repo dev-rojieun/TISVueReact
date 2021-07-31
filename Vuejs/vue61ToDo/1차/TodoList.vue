@@ -16,7 +16,7 @@ li {
     border-radius: 5px;
 }
 li.checked {
-    background: #BBB;
+    background: #bbb;
     color: #fff;
     text-decoration: line-through;
 }
